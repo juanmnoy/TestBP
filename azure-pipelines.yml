@@ -1,0 +1,66 @@
+# Starter pipeline
+
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+  
+
+stages:
+- stage: build
+  displayName: 'Create IaC Artifact'
+  jobs:
+  - job: build
+    displayName: 'Copy Files to IaC Artifact'
+    steps:
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'IAC/'
+        Contents: '*.tf'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'IaC Artifact'
+        publishLocation: 'Container'
+
+- stage: Deploy
+  displayName: 'Deploy IaC'
+  jobs:
+  - job: Deploy
+    displayName: 'Create Resources'
+
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'IaC Artifact'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
+        backendServiceArm: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
+        backendAzureRmResourceGroupName: 'TestBP'
+        backendAzureRmStorageAccountName: 'testbpstorageaccount'
+        backendAzureRmContainerName: 'statefile'
+        backendAzureRmKey: 'terraform.tfstate'
+    
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
+        commandOptions: '-out=tfplan'
+        environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
