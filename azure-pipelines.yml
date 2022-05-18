@@ -10,15 +10,22 @@ trigger:
 pool:
   vmImage: ubuntu-latest
   
-steps:
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'IAC/'
-    Contents: '*.tf'
-    TargetFolder: '$(build.artifactstagingdirectory)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'IaC Artifact'
-    publishLocation: 'Container'
+stages:
+- stage: build
+  displayName: 'Create IaC Artifact'
+  jobs:
+  - job: build
+    displayName: 'Copy Files to IaC Artifact'
+    steps:
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'IAC/'
+        Contents: '*.tf'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'IaC Artifact'
+        publishLocation: 'Container'
