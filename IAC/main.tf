@@ -27,6 +27,7 @@ resource "azurerm_container_registry" "cr" {
   name                = "TestBpCr"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
+  sku                 = "Premium"
 }
 
 resource "azurerm_kubernetes_cluster" "kc" {
