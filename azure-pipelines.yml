@@ -12,6 +12,6 @@ pool:
 steps:
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '/IAC'
+    SourceFolder: 'IAC/'
     Contents: '*.tf'
     TargetFolder: '$(build.artifactstagingdirectory)'
