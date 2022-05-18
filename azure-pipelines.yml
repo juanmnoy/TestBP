@@ -83,3 +83,11 @@ stages:
                 Write-Host "There is no change detected in Terraform tfplan file"
           }
         workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
+    
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.ArtifactsDirectory)'
+        environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
+    
