@@ -29,3 +29,15 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'IaC Artifact'
         publishLocation: 'Container'
+
+- stage: Deploy
+  displayName: 'Deploy IaC'
+  jobs:
+  - job: Deploy
+    displayName: 'Create Resources'
+    steps:
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+
+    
