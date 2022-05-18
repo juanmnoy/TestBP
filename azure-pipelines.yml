@@ -15,7 +15,7 @@ stages:
 - stage: build
   displayName: 'Create IaC Artifact'
   jobs:
-  - job: build
+  - job: build_IaC_Artifact
     displayName: 'Copy Files to IaC Artifact'
     steps:
     - task: CopyFiles@2
@@ -29,6 +29,17 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'IaC Artifact'
         publishLocation: 'Container'
+
+  - job: build_APP_Artifact
+    displayName: 'Build Docker Artifact'
+    steps:
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'testbpcontainer'
+        repository: 'testbprepo'
+        command: 'buildAndPush'
+        Dockerfile: 'Docker/dockerfile'
 
 - stage: Deploy
   displayName: 'Deploy IaC'
