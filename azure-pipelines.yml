@@ -64,3 +64,22 @@ stages:
         workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
         commandOptions: '-out=tfplan'
         environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
+    
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write-Host "LASTEXITCODE : $LASTEXITCODE"
+          $plan = $(terraform show -json tfplan | ConvertFrom-Json)
+          $actions = $plan.resource_changes.change.actions
+          Write-Host "Terraform actions : $actions"
+          if (($actions -contains 'create') -or ($actions -contains 'delete') -or ($actions -contains 'update'))
+          {
+                Write-Host "Terraform will perform the following actions : $actions"
+                Write-Host "##vso[task.setvariable variable=anyTfChanges;]true"
+          }
+                else
+          {
+                Write-Host "There is no change detected in Terraform tfplan file"
+          }
+        workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
