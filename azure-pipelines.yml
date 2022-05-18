@@ -15,7 +15,7 @@ stages:
 - stage: build
   displayName: 'Create IaC Artifact'
   jobs:
-  - job: build IaC Artifact
+  - job: build_IaC_Artifact
     displayName: 'Copy Files to IaC Artifact'
     steps:
     - task: CopyFiles@2
@@ -30,7 +30,7 @@ stages:
         ArtifactName: 'IaC Artifact'
         publishLocation: 'Container'
 
-  - job: build APP Artifact
+  - job: build_APP_Artifact
     displayName: 'Build Docker Artifact'
     steps:
 
