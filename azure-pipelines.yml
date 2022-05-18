@@ -40,4 +40,12 @@ stages:
       inputs:
         terraformVersion: 'latest'
 
-    
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
+        backendAzureRmResourceGroupName: 'TestBP'
+        backendAzureRmStorageAccountName: 'testbpstorageaccount'
+        backendAzureRmContainerName: 'statefile'
+        backendAzureRmKey: 'terraform.tfstate'
