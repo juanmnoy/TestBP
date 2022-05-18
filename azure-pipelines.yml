@@ -39,7 +39,8 @@ stages:
         containerRegistry: 'testbpcontainer'
         repository: 'testbprepo'
         command: 'buildAndPush'
-        Dockerfile: 'Docker/dockerfile'
+        Dockerfile: '**/*dockerfile'
+        
 
 - stage: Deploy
   displayName: 'Deploy IaC'
