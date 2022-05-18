@@ -56,3 +56,11 @@ stages:
         backendAzureRmStorageAccountName: 'testbpstorageaccount'
         backendAzureRmContainerName: 'statefile'
         backendAzureRmKey: 'terraform.tfstate'
+    
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.ArtifactsDirectory)'
+        commandOptions: '-out=tfplan'
+        environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
