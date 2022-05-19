@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: testbprepo
-        image: testbpcr.azurecr.io/testbprepo:125
+        image: testbpcr.azurecr.io/testbprepo:142
         ports:
         - containerPort: 8000
 # service type loadbalancer       
