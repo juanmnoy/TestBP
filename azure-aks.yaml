@@ -31,6 +31,3 @@ spec:
       port: 8000
       targetPort: 8000
   type: LoadBalancer
-© 2022 GitHub, Inc.
-Terms
-Privac
