@@ -26,7 +26,7 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: 'IAC/'
+        SourceFolder: '/'
         Contents: '*.yaml'
         TargetFolder: '$(build.artifactstagingdirectory)'    
 
