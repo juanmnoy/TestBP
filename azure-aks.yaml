@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testbp
+  name: testbp-deployment
 spec:
   replicas: 2
   selector:
@@ -11,26 +11,26 @@ spec:
     metadata:
       labels:
         app: testbp
-      spec:
+    spec:
       containers:
-      - name: mypythondockerrepo
-        #image: myacrrepo312.azurecr.io/akannan1087/mypythondockerrepo:#{Build.BuildId}#
+      - name: testbprepo
         image: testbpcr.azurecr.io/testbprepo
         ports:
-        - containerPort: 8000
+        - containerPort: 5000
 # service type loadbalancer       
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: testbp
+  name: testbp-svc
 spec:
   selector:
     app: testbp
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 5000
+      targetPort: 5000
   type: LoadBalancer
 © 2022 GitHub, Inc.
 Terms
+Privac
