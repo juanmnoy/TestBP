@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: testsbp
+        app: testbp
     spec:
       containers:
       - name: mypythondockerrepo
