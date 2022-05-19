@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: testbprepo
-        image: testbpcr.azurecr.io/testbprepo:142
+        image: testbpcr.azurecr.io/testbprepo:146
         command: [ "/bin/bash", "-c", "--" ]
         args: [ "while true; do sleep 30; done;" ]
         ports:
@@ -30,6 +30,6 @@ spec:
     app: testbp
   ports:
     - protocol: TCP
-      port: 8000
+      port: 3000
       targetPort: 8000
   type: LoadBalancer
