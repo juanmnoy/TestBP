@@ -42,7 +42,7 @@ stages:
         Dockerfile: '**/*dockerfile'
         
 
-- stage: Deploy
+- stage: Test
   displayName: 'Deploy IaC'
   jobs:
   - job: Deploy
@@ -103,3 +103,4 @@ stages:
         workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
         environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
     
+w
