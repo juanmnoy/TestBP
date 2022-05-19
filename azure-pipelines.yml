@@ -13,7 +13,7 @@ pool:
 
 stages:
 - stage: build
-  displayName: 'Create IaC Artifact'
+  displayName: 'Build'
   jobs:
   - job: build_IaC_Artifact
     displayName: 'Copy Files to IaC Artifact'
@@ -43,7 +43,7 @@ stages:
         
 
 - stage: Test
-  displayName: 'Deploy IaC'
+  displayName: 'Test'
   jobs:
   - job: Deploy
     displayName: 'Create Resources'
@@ -102,4 +102,5 @@ stages:
         command: 'apply'
         workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
         environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
+    
     
