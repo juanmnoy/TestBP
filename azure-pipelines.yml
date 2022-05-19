@@ -24,6 +24,12 @@ stages:
         Contents: '*.tf'
         TargetFolder: '$(build.artifactstagingdirectory)'
 
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'IAC/'
+        Contents: '*.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'    
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -103,4 +109,12 @@ stages:
         workingDirectory: '$(System.ArtifactsDirectory)/IaC Artifact'
         environmentServiceNameAzureRM: 'Azure for Students(b1289e0b-3ebc-4b98-888b-e79f54e79f6d)'
     
-    
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'testbpcluster'
+        namespace: 'default'
+        useConfigurationFile: true
+        configuration: '$(System.ArtifactsDirectory)/IaC Artifact'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
