@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: testbprepo
-        image: testbpcr.azurecr.io/testbprepo:152
+        image: testbpcr.azurecr.io/testbprepo:$(Build.BuildId)
         env:
         - name: API_PORT
           value: "8000"
