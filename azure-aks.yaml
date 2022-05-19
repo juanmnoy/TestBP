@@ -14,7 +14,12 @@ spec:
     spec:
       containers:
       - name: testbprepo
-        image: testbpcr.azurecr.io/testbprepo:146
+        image: testbpcr.azurecr.io/testbprepo:148
+        env:
+        - name: API_PORT
+          value: "8000"
+        - name: TOKEN_KEY
+          value: "myperonalandwonderfulKey"
         command: [ "/bin/bash", "-c", "--" ]
         args: [ "while true; do sleep 30; done;" ]
         ports:
