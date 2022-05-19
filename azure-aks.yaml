@@ -11,7 +11,7 @@ spec:
     metadata:
       labels:
         app: testbp
-    spec:
+      spec:
       containers:
       - name: mypythondockerrepo
         #image: myacrrepo312.azurecr.io/akannan1087/mypythondockerrepo:#{Build.BuildId}#
