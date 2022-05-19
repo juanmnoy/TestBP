@@ -26,7 +26,7 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: 'IAC/'
+        SourceFolder: ''
         Contents: '*.yaml'
         TargetFolder: '$(build.artifactstagingdirectory)'    
 
@@ -114,7 +114,9 @@ stages:
         connectionType: 'Kubernetes Service Connection'
         kubernetesServiceEndpoint: 'testbpcluster'
         namespace: 'default'
+        command: 'apply'
         useConfigurationFile: true
         configuration: '$(System.ArtifactsDirectory)/IaC Artifact'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
+      
