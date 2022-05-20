@@ -23,7 +23,19 @@ stages:
         SourceFolder: 'IAC/'
         Contents: '*.tf'
         TargetFolder: '$(build.artifactstagingdirectory)'
-
+    - task: replacetokens@5
+      inputs:
+        targetFiles: '*.yaml'
+        encoding: 'auto'
+        tokenPattern: 'azpipelines'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: true
     - task: CopyFiles@2
       inputs:
         SourceFolder: ''
